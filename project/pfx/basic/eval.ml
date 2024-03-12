@@ -48,7 +48,7 @@ let step state =
   
   | Mult ::q , stack ->
     ( match stack with
-      | v1 :: v2 ::s -> Ok (q, (v1/v2)::s)
+      | v1 :: v2 ::s -> Ok (q, (v1*v2)::s)
       | _ -> Error("Not enough arguments for multiplication", ([], stack))
     )
 
