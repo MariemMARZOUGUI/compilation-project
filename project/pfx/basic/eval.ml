@@ -52,6 +52,12 @@ let step state =
       | _ -> Error("Not enough arguments for multiplication", ([], stack))
     )
 
+  | Rem :: q, stack -> 
+    ( match stack with
+      | v1 :: v2 :: s -> Ok (q, (v1 mod v2) :: s)
+      | _ -> Error("Not enough arguments for mod", ([], stack))
+    )
+
 let eval_program (numargs, cmds) args =
   let rec execute = function
     | [], []    -> Ok None
