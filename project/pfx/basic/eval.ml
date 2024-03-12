@@ -13,6 +13,7 @@ let string_of_state (cmds,stack) =
 let step state =
   match state with
   | [], _ -> Error("Nothing to step",state)
+  
   (* Valid configurations *)
   | DefineMe :: q , stack          -> Ok (q, stack)
 
