@@ -12,10 +12,45 @@ let string_of_state (cmds,stack) =
 (* Question 4.2 *)
 let step state =
   match state with
+  (* | DefineMe :: q , stack          -> Ok (q, stack) *)
   | [], _ -> Error("Nothing to step",state)
+  | Push n :: q , stack -> Ok (n::q, stack)
+
+  | Pop :: q, stack -> 
+    ( match stack with 
+      | _ :: s -> Ok (q, s)
+      | _ -> Error("Empty stack", ([], stack))
+    ) 
+
+  | Swap :: q, stack -> 
+    ( match stack with 
+      | v1:: v2 :: s -> Ok (q, v2 :: v1::s)
+      | _ -> Error("Empty stack or no enough elements", ([], stack))
+    ) 
   
-  (* Valid configurations *)
-  | DefineMe :: q , stack          -> Ok (q, stack)
+  | Add :: q, stack ->
+    ( match stack with 
+      | v1 :: v2 :: s -> Ok (q, (v1+v2) :: s)
+      | _ -> Error("Not enough arguments for addition", ([], stack))
+    )
+
+  | Sub ::q , stack ->
+    ( match stack with
+     | v1 :: v2 ::s -> Ok (q, (v1-v2)::s)
+     | _ -> Error("Not enough arguments for substraction", ([], stack))
+    )
+  
+  | Div ::q , stack ->
+    ( match stack with
+      | v1 :: v2 ::s -> Ok (q, (v1/v2)::s)
+      | _ -> Error("Not enough arguments for division", ([], stack))
+    )
+  
+  | Mult ::q , stack ->
+    ( match stack with
+      | v1 :: v2 ::s -> Ok (q, (v1/v2)::s)
+      | _ -> Error("Not enough arguments for multiplication", ([], stack))
+    )
 
 let eval_program (numargs, cmds) args =
   let rec execute = function
