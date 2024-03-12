@@ -14,7 +14,7 @@ let string_of_command = function
   | Push n -> "Push " ^ string_of_int n
   | Add -> "Add"
   | Sub -> "Sub"
-  | Mult -> "Mul"
+  | Mult -> "Mult"
   | Div -> "Div"
   | Rem -> "Rem"
   | Swap -> "Swap"
