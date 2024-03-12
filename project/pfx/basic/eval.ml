@@ -14,7 +14,7 @@ let step state =
   match state with
   (* | DefineMe :: q , stack          -> Ok (q, stack) *)
   | [], _ -> Error("Nothing to step",state)
-  | Push n :: q , stack -> Ok (n::q, stack)
+  | Push n :: q , stack -> Ok (q, n::stack)
 
   | Pop :: q, stack -> 
     ( match stack with 
@@ -24,7 +24,7 @@ let step state =
 
   | Swap :: q, stack -> 
     ( match stack with 
-      | v1:: v2 :: s -> Ok (q, v2 :: v1::s)
+      | v1:: v2 :: s -> Ok (q, v2 :: v1 :: s)
       | _ -> Error("Empty stack or no enough elements", ([], stack))
     ) 
   
