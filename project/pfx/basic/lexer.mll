@@ -35,7 +35,7 @@ rule token = parse
   (* illegal characters *)
   | _ as c                  { failwith (Printf.sprintf "Illegal character '%c': " c) }
 
-  let rec examine_all lexbuf = 
+let rec examine_all lexbuf = 
     let result = token lexbuf in 
     print_token result;
     print_string "";
