@@ -2,14 +2,14 @@
   (* open Parser *)
 
   type token = 
-  | EOF | ADD | SUB | MUL | DIV | REM | LPAR | RPAR 
+  | EOF | ADD | SUB | MULT | DIV | REM | POP  | SWAP | PUSH
   | INT of int  
 
   let print_token = function 
   | EOF   -> print_string "EOF " 
   | ADD   -> print_string "ADD "
   | SUB   -> print_string "SUB "
-  | MUL   -> print_string "MUL "
+  | MULT   -> print_string "MULT "
   | DIV   -> print_string "DIV "
   | REM   -> print_string "REM "
   | POP   -> print_string "POP "
