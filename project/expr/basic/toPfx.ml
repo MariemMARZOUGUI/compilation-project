@@ -1,7 +1,16 @@
 open Ast
 
-let generate = function
-  | Const _ -> failwith "To implement"
-  | Binop(_,_,_) -> failwith "To implement"
-  | Uminus _ -> failwith "To implement"
-  | Var _ -> failwith "Not yet supported"
+let rec generate( exp : Ast.expression ) : BasicPfx.Ast.command list = 
+  match exp with
+    | Const a -> [Push a]
+    | Binop(op,x,y) -> 
+      generate x @ generate y @ 
+      ( match op with
+      | BinOp.Badd -> [Add]
+      | BinOp.Bsub -> [Sub]
+      | BinOp.Bmul -> [Mult]
+      | BinOp.Bdiv -> [Div]
+      | BinOp.Bmod -> [Rem]
+      )
+    | Uminus a -> generate a @ generate (Const 0) @ [Sub]
+    | Var _ -> failwith "Not yet supported"
