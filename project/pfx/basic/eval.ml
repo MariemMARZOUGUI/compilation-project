@@ -14,33 +14,33 @@ let step state =
   match state with
   (* | DefineMe :: q , stack          -> Ok (q, stack) *)
   | [], _ -> Error("Nothing to step",state)
-  | Push n :: q , stack -> Ok (q, n::stack)
+  | PUSH n :: q , stack -> Ok (q, n::stack)
 
-  | Pop :: q, stack -> 
+  | POP :: q, stack -> 
     ( match stack with 
       | _ :: s -> Ok (q, s)
       | _ -> Error("Empty stack", ([], stack))
     ) 
 
-  | Swap :: q, stack -> 
+  | SWAP :: q, stack -> 
     ( match stack with 
       | v1:: v2 :: s -> Ok (q, v2 :: v1 :: s)
       | _ -> Error("Empty stack or no enough elements", ([], stack))
     ) 
   
-  | Add :: q, stack ->
+  | ADD :: q, stack ->
     ( match stack with 
       | v1 :: v2 :: s -> Ok (q, (v1+v2) :: s)
       | _ -> Error("Not enough arguments for addition", ([], stack))
     )
 
-  | Sub ::q , stack ->
+  | SUB ::q , stack ->
     ( match stack with
      | v1 :: v2 ::s -> Ok (q, (v1-v2)::s)
      | _ -> Error("Not enough arguments for substraction", ([], stack))
     )
   
-  | Div ::q , stack ->
+  | DIV ::q , stack ->
     ( match stack with
       | v1 :: v2 ::s -> Ok (q, (v1/v2)::s)
       | _ -> Error("Not enough arguments for division", ([], stack))
