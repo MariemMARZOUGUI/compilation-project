@@ -24,13 +24,13 @@ rule token = parse
   | digit+ as nb           { mk_int nb }
   (* commands  *)
   (***** Exercice 6.1 *****)
-  | "add"  {Add}
-  | "sub"  {Sub}
-  | "mult"  {Mult}
-  | "div"  {Div}
-  | "rem"  {Rem}
-  | "pop"  {Pop}
-  | "swap" {Swap}
-  | "push" {Push}
+  | "Add"  {Add}
+  | "Sub"  {Sub}
+  | "Mult"  {Mult}
+  | "Div"  {Div}
+  | "Rem"  {Rem}
+  | "Pop"  {Pop}
+  | "Swap" {Swap}
+  | "Push" {Push}
   (* illegal characters *)
   | _ as c                  { failwith (Printf.sprintf "Illegal character '%c': " c) }
