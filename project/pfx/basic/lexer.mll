@@ -1,4 +1,6 @@
-  {open Location
+  {
+  (* open Parser *)
+  open Utils
 
   (* Define a type for tokens *)
   type token = 
@@ -19,26 +21,10 @@
     | INT n -> print_int n ; print_string " " 
 
   (* Function to create an integer token *)
-  let mk_int nb =
-    try INT (int_of_string nb)
-    with Failure _ -> failwith (Printf.sprintf "Illegal integer '%s': " nb)
-
-  (* Initialize the location with the file name *)
-  let init_location lexbuf fname =
-    Location.init lexbuf fname;
-    lexbuf
-
-  (* Function to increase line number in the given buffer *)
-  let incr_line lexbuf =
-    Location.incr_line lexbuf
-
-  (* Function to get the current position *)
-  let curr_position lexbuf =
-    Location.curr lexbuf
-
-  (* Function to print a given location *)
-  let print_location loc =
-    Location.print loc
+  let mk_int nb loc =
+      try INT (int_of_string nb)
+      with Failure _ -> raise (Location.Error(Printf.sprintf "Illegal integer '%s': " nb,loc))
+  }
 
   (* Define lexer rules *)
   let newline = (['\n' '\r'] | "\r\n")
@@ -47,17 +33,12 @@
   let digit = ['0'-'9']
 
   rule token = parse
-    (* newlines *)
-    | newline { incr_line lexbuf; token lexbuf }
-    (* blanks *)
-    | blank + { token lexbuf }
-    (* end of file *)
-    | eof      { EOF }
-    (* comments *)
-    | "--" not_newline_char*  { token lexbuf }
-    (* integers *)
-    | digit+ as nb           { mk_int nb }
-    
+    | newline { Location.incr_line lexbuf; token lexbuf }
+    | blank+ { token lexbuf }
+    | eof { EOF }
+    | "--" not_newline_char* newline? { token lexbuf }
+    | digit+ as nb { mk_int nb (Location.curr lexbuf) }
+
     (* commands  *)
     (***** Exercice 6.1 *****)
     | "ADD"  {ADD}
@@ -70,10 +51,4 @@
     | "PUSH" {PUSH}
 
     (* illegal characters *)
-    | _ as c { 
-        let loc = Location.curr lexbuf in
-        let pos = curr_position lexbuf in
-        let error_msg = Printf.sprintf "Illegal character '%c': " c in
-        raise (Location.Error (error_msg, {pos_fname = loc.pos_fname; pos_lnum = pos.pos_lnum; pos_bol = pos.pos_bol; pos_cnum = pos.pos_cnum}))
-      }
-  }
+    | _ as c { raise (Location.Error(Printf.sprintf "Illegal character '%c': " c, Location.curr lexbuf)) }
