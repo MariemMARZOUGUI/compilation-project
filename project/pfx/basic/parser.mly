@@ -38,7 +38,7 @@ instruction_seq :
 instruction : 
   | ADD        { ADD }
   | SUB        { SUB }
-  | MUL        { MULT }
+  | MULT        { MULT }
   | DIV        { DIV }
   | REM        { REM }
   | POP        { POP }
