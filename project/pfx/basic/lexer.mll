@@ -1,8 +1,9 @@
 {
+ open Parser
  open Utils
-  
-  type token =
-  | EOF | ADD | SUB | MUL | DIV | REM | POP | SWAP | PUSH 
+  (* used only to execute the main without the parser *)
+  (*type token =
+  | EOF | ADD | SUB | MUL | DIV | REM | POP | SWAP| PUSH of int 
   | INT of int
 
   let print_token = function 
@@ -14,14 +15,18 @@
   | REM   -> print_string "REM "
   | POP   -> print_string "POP "
   | SWAP  -> print_string "SWAP "
-  | PUSH  -> print_string "PUSH "
-  | INT n -> print_int n ; print_string " " 
+  | PUSH  n -> print_string "PUSH "; print_int n ; print_string " " 
+  | INT n -> print_int n ; print_string " " *)
 
   let mk_int nb loc=
     try INT (int_of_string nb)
     with Failure _ -> raise (Location.Error(Printf.sprintf "Illegal integer '%s': " nb,loc))
-
+  
+  (*let mk_push nb lexbuf =
+  try PUSH (int_of_string nb lexbuf)
+  with Failure _ -> Location.raise_error("Illegal integer: " ^ nb) lexbuf*)
 }
+
 let newline = (['\n' '\r'] | "\r\n")
 let blank = [' ' '\014' '\t' '\012']
 let not_newline_char = [^ '\n' '\r']
@@ -37,9 +42,10 @@ rule token = parse
   | "--" not_newline_char*  { token lexbuf }
   (* integers *)
   | digit+ as nb { mk_int nb (Location.curr lexbuf) }
-  
+  (* comments *)
+
   (* commands  *)
-  | "PUSH"  { PUSH }
+  | "PUSH "+ (digit+ as nb) {PUSH (int_of_string nb)}
   | "POP"       { POP }
   | "SWAP"      { SWAP }
   | "ADD"       { ADD }
