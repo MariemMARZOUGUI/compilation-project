@@ -3,14 +3,14 @@
  open Utils
   (* used only to execute the main without the parser *)
   (*type token =
-  | EOF | ADD | SUB | MUL | DIV | REM | POP | SWAP| PUSH of int 
+  | EOF | ADD | SUB | MULT | DIV | REM | POP | SWAP| PUSH of int 
   | INT of int
 
   let print_token = function 
   | EOF   -> print_string "EOF " 
   | ADD   -> print_string "ADD "
   | SUB   -> print_string "SUB "
-  | MUL   -> print_string "MUL "
+  | MULT   -> print_string "MULT "
   | DIV   -> print_string "DIV "
   | REM   -> print_string "REM "
   | POP   -> print_string "POP "
@@ -50,7 +50,7 @@ rule token = parse
   | "SWAP"      { SWAP }
   | "ADD"       { ADD }
   | "SUB"       { SUB }
-  | "MUL"       { MUL }
+  | "MULT"       { MULT }
   | "DIV"       { DIV }
   | "REM"       { REM }
 

@@ -36,12 +36,12 @@ instruction_seq :
   | instr=instruction instrs=instruction_seq { instr :: instrs } 
 
 instruction : 
-  | ADD        { Add }
-  | SUB        { Sub }
-  | MUL        { Mul }
-  | DIV        { Div }
-  | REM        { Rem }
-  | POP        { Pop }
-  | SWAP       { Swap }
-  | PUSH n=INT { Push n }
+  | ADD        { ADD }
+  | SUB        { SUB }
+  | MUL        { MULT }
+  | DIV        { DIV }
+  | REM        { REM }
+  | POP        { POP }
+  | SWAP       { SWAP }
+  | PUSH n=INT { PUSH n }
 %%
