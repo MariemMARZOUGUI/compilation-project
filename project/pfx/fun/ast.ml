@@ -24,7 +24,7 @@ let string_of_command = function
   | SWAP -> "SWAP"
   | POP -> "POP"
   (* extending the Pfx language to support functions and applications *)
-  | Q of command list -> string_of_command Q 
+  | Q cmds -> "Q " ^ string_of_commands cmds
   | EXEC -> "EXEC"
   | GET -> "GET"
 
