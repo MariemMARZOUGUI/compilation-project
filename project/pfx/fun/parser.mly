@@ -51,7 +51,7 @@ instruction :
   | EXEC       { EXEC }
   | GET        { GET }
 
-EXEC_SEQ :  
+exec_seq :  
   | SEQ_START SEQ_END { [] }
   | SEQ_START instruction_seq SEQ_END { instruction_seq }
 %%
