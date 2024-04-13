@@ -1,6 +1,8 @@
+
 %{
   (* Ocaml code here*)
   open Ast
+
 %}
 
 (**************
@@ -8,10 +10,11 @@
  **************)
 
 (* enter tokens here, they should begin with %token *)
-%token EOF ADD SUB MUL DIV REM POP SWAP PUSH 
+%token EOF
+%token ADD SUB MULT DIV REM POP SWAP GET EXEC LPAR RPAR
 %token <int> INT
-%token SEQ_START SEQ_END EXEC GET
-%token EXEC_SEQ
+%token <int> PUSH 
+
 
 (******************************
  * Entry points of the parser *
@@ -27,28 +30,27 @@
  *************)
 
 (* list all rules composing your grammar; obviously your entry point has to be present *)
-
 program: i=INT  q=instruction_seq  EOF { i, q }
 
 instruction_seq : 
   | { [] }
   | instr=instruction instrs=instruction_seq { instr :: instrs } 
 
+commands: { [] }
+        | head=cmd cmds=commands { head :: cmds }
+
 instruction : 
   | ADD        { ADD }
   | SUB        { SUB }
-  | MUL        { MUL }
+  | MULT       { MULT}
   | DIV        { DIV }
   | REM        { REM }
   | POP        { POP }
   | SWAP       { SWAP }
   | PUSH n=INT { PUSH n }
-  | EXEC_SEQ   { ExecSeq }
-  | EXEC       { Exec }
-  | GET        { GET }
+  | GET { GET }
+  | EXEC { EXEC }
+  | LPAR cmmds=commands RPAR { PushExec(cmmds) }
 
-exec_seq :  
-  | SEQ_START SEQ_END { [] }
-  | SEQ_START instruction_seq SEQ_END { instruction_seq }
-
+%%
 %%

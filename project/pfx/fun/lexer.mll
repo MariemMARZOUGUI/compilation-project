@@ -4,7 +4,7 @@
   (* used only to execute the main without the parser *)
   (*type token =
   | EOF | ADD | SUB | MULT | DIV | REM | POP | SWAP| PUSH of int 
-  | INT of int
+  | INT of int*)
 
   let print_token = function 
   | EOF   -> print_string "EOF " 
@@ -16,7 +16,11 @@
   | POP   -> print_string "POP "
   | SWAP  -> print_string "SWAP "
   | PUSH  n -> print_string "PUSH "; print_int n ; print_string " " 
-  | INT n -> print_int n ; print_string " " *)
+  | INT n -> print_int n ; print_string " " 
+  | GET -> print_string   "GET"
+  | EXEC -> print_string   "EXEC"
+  | LPAR -> print_string  "LPAR"
+  | RPAR -> print_string  "RPAR"
 
   let mk_int nb loc=
     try INT (int_of_string nb)
@@ -47,16 +51,16 @@ rule token = parse
   (* commands  *)
   | "PUSH "+ (digit+ as nb) {PUSH (int_of_string nb)}
   | "POP"       { POP }
-  | "SWAP"      { SWAP }
+  | "SWAP"      { SWAP}
   | "ADD"       { ADD }
   | "SUB"       { SUB }
-  | "MULT"      { MULT }
+  | "MULT"      { MULT}
   | "DIV"       { DIV }
   | "REM"       { REM }
-  | "("         {SEQ_START}
-  | ")"         {SEQ_END}
-  | "EXEC"      {EXEC}
-  | "GET"       {GET}
+  | "GET"       { GET }
+  | "EXEC"      {EXEC }
+  | ")"         {RPAR }
+  | "("         {LPAR }
 
   (* illegal characters *)
   | _ as c { raise (Location.Error(Printf.sprintf "Illegal character '%c': " c, Location.curr lexbuf)) }

@@ -8,10 +8,9 @@ type command =
 | REM             (* Pop two values from the stack, calculate the modulo of the first divided by the second, and push the result *)
 | SWAP            (* Swap the top two values on the stack *)
 | POP              (* Pop the top value from the stack *)
-| Q of command list
 | EXEC
 | GET
-
+| PushExec of command list
 (* The type for programs *)
 type program = int * command list
 
