@@ -11,6 +11,7 @@ type command =
 | EXEC
 | GET
 | PushExec of command list
+
 (* The type for programs *)
 type program = int * command list
 

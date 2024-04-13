@@ -1,10 +1,10 @@
 {
- open Parser
+ (*open Parser*)
  open Utils
   (* used only to execute the main without the parser *)
-  (*type token =
-  | EOF | ADD | SUB | MULT | DIV | REM | POP | SWAP| PUSH of int 
-  | INT of int*)
+  type token =
+  | EOF | ADD | SUB | MULT | DIV | REM | POP | SWAP| GET | EXEC | LPAR | RPAR | PUSH of int 
+  | INT of int
 
   let print_token = function 
   | EOF   -> print_string "EOF " 
@@ -26,9 +26,9 @@
     try INT (int_of_string nb)
     with Failure _ -> raise (Location.Error(Printf.sprintf "Illegal integer '%s': " nb,loc))
   
-  (*let mk_push nb lexbuf =
+  let mk_push nb lexbuf =
   try PUSH (int_of_string nb lexbuf)
-  with Failure _ -> Location.raise_error("Illegal integer: " ^ nb) lexbuf*)
+  with Failure _ -> Location.raise_error("Illegal integer: " ^ nb) lexbuf
 }
 
 let newline = (['\n' '\r'] | "\r\n")
