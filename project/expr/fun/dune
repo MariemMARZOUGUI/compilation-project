@@ -1,5 +1,5 @@
 (library
- (name funExpr)
+ (name FunExpr)
  (libraries utils common funPfx)
  (modules Ast Lexer Parser Eval toPfx))
 

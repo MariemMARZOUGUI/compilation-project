@@ -1,4 +1,5 @@
 open FunPfx.Ast
+open Ast
 
 let generate env dpth =
   let binop_to_Pfx = function

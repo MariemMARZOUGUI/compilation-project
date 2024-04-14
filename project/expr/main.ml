@@ -1,6 +1,6 @@
 (* Entry point of the program, should contain your main function: here it is
  named parse_eval, it is the function provided after question 6.1 *)
-open BasicExpr
+open FunExpr
 open Utils
 
 (* The main function *)

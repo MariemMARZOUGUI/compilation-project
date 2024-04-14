@@ -24,6 +24,10 @@
        Printf.printf "Error: %s at %s\n" msg (Location.string_of loc);
      | Sys_error _ -> print_endline ("Can't find file '" ^ file ^ "'")
  
+ 
+ 
+ 
+ (* Here we add the parsing of the command line and link to the main function *)
  let _ =
    (* function to register arguments *)
    let register_arg i = args := !args@[i] in

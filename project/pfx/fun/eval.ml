@@ -14,9 +14,10 @@ let string_of_state (cmds, stack) =
 (* Question 4.2 *)
 let step state =
   match state with
-  (* | DefineMe :: q , stack          -> Ok (q, stack) *)
+  
   | [], _ -> Error("Nothing to step",state)
-  | PUSH n :: q , stack -> Ok (q, n::stack)
+
+  | PUSH(n) :: q, stack -> Ok (q, Int n :: stack)
 
   | POP :: q, stack -> 
     ( match stack with 

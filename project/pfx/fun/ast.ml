@@ -23,7 +23,7 @@ let rec string_of_command = function
   | SWAP -> "SWAP"
   | POP -> "POP"
   | EXEC -> "EXEC"
-  | GET -> "Get"
+  | GET -> "GET"
   | DoExec(instruc)-> "(" ^ String.concat " " (List.map string_of_command instruc) ^ ")"
 
 let string_of_commands cmds = String.concat " " (List.map string_of_command cmds)
