@@ -1,23 +1,21 @@
 AUTHORS
 -------
 
-- NAME1
-- NAME2
-…
+- Yahia HENI
+- Mariem MARZOUGUI
 
 ===============
 
 Description of the project
 --------------------------
 
-This μ-project is a very simple compiler…
-
+This micro-project entails developing a straightforward compiler. It transforms programs written in a high-level language, dubbed expr, into a low-level language known as pfx. Expr is a basic expression language supporting arithmetic operations, variables, and function definitions. Conversely, pfx is a stack-based language, functioning on a stack of values and executing operations by pushing and popping values from the stack.
 ===============
 
 Sources
 -------
 
-Git repository: https://redmine-df.telecom-bretagne.eu/git/PROJECTNAME
+Git repository: https://github.com/MariemMARZOUGUI/compilation-project
 
 (obviously, you _will_ use a version control system such as Git, IMT
 Atlantique provides a project management platform: use it!)
@@ -31,7 +29,7 @@ How to…
 
 …retrieve the sources?
 
-  git clone https://redmine-df.telecom-bretagne.eu/git/PROJECTNAME
+  git clone https://github.com/MariemMARZOUGUI/compilation-project
 
 …compile?
 
@@ -41,6 +39,7 @@ How to…
 
   dune utop and then use the libraries
   (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example.expr
   dune exec ./pfxVM.exe -- TESTFILE.pfx -a 12 -a 52
 
 
@@ -83,6 +82,7 @@ project
 │   │   ├── ast.ml
 │   │   ├── ast.mli
 │   │   ├── lexer.mll
+│   │   ├── tests
 │   │   └── parser.mly
 │   └── main.ml
 ├── pfx: the pfx VM
@@ -96,6 +96,16 @@ project
 │   │   ├── parser.mly           <- To edit
 │   │   └── tests: for tests
 │   │       └── ok_prog.pfx
+│   ├── dune
+│   ├── fun
+│   │   ├── ast.ml
+│   │   ├── ast.mli
+│   │   ├── eval.ml
+│   │   ├── eval.mli
+│   │   ├── lexer.mll
+│   │   ├── parser.mly
+│   │   └── tests
+│   └── pfxVM.ml
 │   └── pfxVM.ml: main file for the pfx VM
 └── utils
     ├── dune
@@ -106,9 +116,8 @@ project
 Progress
 --------
 
-- We stopped at question 10.1 (proof of derivation)
-- There is still a bug in question 8.3 (new version of generate function)
-- …
+- We stopped at question 12 (proof of derivation)
+- There is still a bug in question 11 (new version of generate function)
 
 ===============
 
@@ -124,11 +133,7 @@ Know bugs and issues
 Helpful resources
 -----------------
 
-- we used Stack Overflow to solve the problem of xxx :
-  https://stackoverflow/xxxxxxi
-  https://stackoverflow/yyyyyy
-- someone on GitHub provided an interesting example very similar to the answer of the question x.y : https://github.com/xxxx
-- …
+- we mainly worked in class so the teacher's help was very useful for our progress. 
 
 ===============
 
