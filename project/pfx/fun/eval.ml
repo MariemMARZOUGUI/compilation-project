@@ -5,12 +5,10 @@ type exec_or_int =
   | Int of int
   | Executable of command list 
 
-let string_of_stack stack = sprintf "[%s]" (String.concat ";" (List.map string_of_int stack))
-
-let string_of_state (cmds,stack) =
+let string_of_state (cmds, stack) =
   (match cmds with
-    | [] -> "no command"
-    | cmd::_ -> sprintf "executing %s" (string_of_command cmd))^
+   | [] -> "no command"
+   | cmd::_ -> sprintf "executing %s" (string_of_command cmd))^
     (sprintf " with stack %s" (String.concat ";" (List.map (fun x -> match x with | Int i -> string_of_int i | Executable _ -> "Executable") stack)))
 
 (* Question 4.2 *)
