@@ -1,34 +1,27 @@
 {
- (*open Parser*)
- open Utils
-  (* used only to execute the main without the parser *)
-  type token =
-  | EOF | ADD | SUB | MULT | DIV | REM | POP | SWAP| GET | EXEC | LPAR | RPAR | PUSH of int 
+  open Parser
+  open Utils
+  
+  (*type token =
+  | EOF| ADD| SUB| MUL| DIV| REM| POP| SWAP| PUSH of int 
   | INT of int
 
   let print_token = function 
   | EOF   -> print_string "EOF " 
   | ADD   -> print_string "ADD "
   | SUB   -> print_string "SUB "
-  | MULT   -> print_string "MULT "
+  | MUL   -> print_string "MUL "
   | DIV   -> print_string "DIV "
   | REM   -> print_string "REM "
   | POP   -> print_string "POP "
   | SWAP  -> print_string "SWAP "
   | PUSH  n -> print_string "PUSH "; print_int n ; print_string " " 
-  | INT n -> print_int n ; print_string " " 
-  | GET -> print_string   "GET"
-  | EXEC -> print_string   "EXEC"
-  | LPAR -> print_string  "LPAR"
-  | RPAR -> print_string  "RPAR"
+  | INT n -> print_int n ; print_string " " *)
 
   let mk_int nb loc=
     try INT (int_of_string nb)
     with Failure _ -> raise (Location.Error(Printf.sprintf "Illegal integer '%s': " nb,loc))
   
-  let mk_push nb lexbuf =
-  try PUSH (int_of_string nb lexbuf)
-  with Failure _ -> Location.raise_error("Illegal integer: " ^ nb) lexbuf
 }
 
 let newline = (['\n' '\r'] | "\r\n")
@@ -46,21 +39,19 @@ rule token = parse
   | "--" not_newline_char*  { token lexbuf }
   (* integers *)
   | digit+ as nb { mk_int nb (Location.curr lexbuf) }
-  (* comments *)
-
   (* commands  *)
   | "PUSH "+ (digit+ as nb) {PUSH (int_of_string nb)}
   | "POP"       { POP }
-  | "SWAP"      { SWAP}
+  | "SWAP"      { SWAP }
   | "ADD"       { ADD }
   | "SUB"       { SUB }
-  | "MULT"      { MULT}
+  | "MUL"       { MUL }
   | "DIV"       { DIV }
   | "REM"       { REM }
+  | "EXEC"      { EXEC }
   | "GET"       { GET }
-  | "EXEC"      {EXEC }
-  | ")"         {RPAR }
-  | "("         {LPAR }
+  | "("         { LPAREN }
+  | ")"         { RPAREN }
 
   (* illegal characters *)
   | _ as c { raise (Location.Error(Printf.sprintf "Illegal character '%c': " c, Location.curr lexbuf)) }

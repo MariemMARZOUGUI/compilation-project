@@ -10,7 +10,7 @@ type command =
 | POP              (* Pop the top value from the stack *)
 | EXEC
 | GET
-| PushExec of command list
+| DoExec of command list
 
 (* The type for programs *)
 type program = int * command list

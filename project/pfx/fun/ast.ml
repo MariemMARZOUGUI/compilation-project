@@ -9,7 +9,7 @@ type command =
 | POP              (* Pop the top value from the stack *)
 | EXEC
 | GET
-| PushExec of command list
+| DoExec of command list
 
 type program = int * command list
 
@@ -23,8 +23,8 @@ let string_of_command = function
   | SWAP -> "SWAP"
   | POP -> "POP"
   | EXEC -> "EXEC"
-  | GET -> "GET"
-  | PushExec(cmmds)-> "(" ^ String.concat " " (List.map string_of_command cmmds) ^ ")"
+  | GET -> "Get"
+  | DoExec(instruc)-> "(" ^ String.concat " " (List.map string_of_command instruc) ^ ")"
 
 let string_of_commands cmds = String.concat " " (List.map string_of_command cmds)
 

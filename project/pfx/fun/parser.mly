@@ -1,7 +1,5 @@
-
 %{
   (* Ocaml code here*)
-  open Ast
 
 %}
 
@@ -11,7 +9,7 @@
 
 (* enter tokens here, they should begin with %token *)
 %token EOF
-%token ADD SUB MULT DIV REM POP SWAP GET EXEC LPAR RPAR
+%token ADD SUB MULT DIV REM POP SWAP EXEC GET LPAREN RPAREN
 %token <int> INT
 %token <int> PUSH 
 
@@ -36,21 +34,16 @@ instruction_seq :
   | { [] }
   | instr=instruction instrs=instruction_seq { instr :: instrs } 
 
-commands: { [] }
-        | head=cmd cmds=commands { head :: cmds }
-
 instruction : 
   | ADD        { ADD }
   | SUB        { SUB }
-  | MULT       { MULT}
+  | MUL        { MULT }
   | DIV        { DIV }
   | REM        { REM }
   | POP        { POP }
   | SWAP       { SWAP }
-  | PUSH n=INT { PUSH n }
-  | GET { GET }
-  | EXEC { EXEC }
-  | LPAR cmmds=commands RPAR { PushExec(cmmds) }
-
-%%
+  | PUSH n=INT { PUSH n}
+  | EXEC       { EXEC }
+  | GET        { GET }
+  | LPAREN instruc=instruction_seq RPAREN {DoExec(instruc)}
 %%
