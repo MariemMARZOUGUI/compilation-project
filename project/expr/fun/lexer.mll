@@ -35,8 +35,12 @@ rule token = parse
   | "("      { LPAR }
   | ")"      { RPAR }
   (* For function support *)
-  | "fun"    { FUN }
+  | "FUN"    { FUN }
   | "->"     { RA }
+  (* Question 11*)
+  | "LET" { LET }
+  | "=" { EQUAL }
+  | "IN" { IN }
   (* identifiers *)
   | ident as id { IDENT id }
   (* illegal characters *)

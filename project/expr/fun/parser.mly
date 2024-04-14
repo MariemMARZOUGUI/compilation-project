@@ -3,7 +3,7 @@
   open BinOp
 %}
 
-%token EOF PLUS MINUS TIMES DIV MOD LPAR RPAR
+%token EOF PLUS MINUS TIMES DIV MOD LPAR RPAR LET EQUAL IN
 %token <int> INT
 %token <string> IDENT
 (* For function support *)
@@ -29,6 +29,8 @@ expr:
   (* For function support *)
   | FUN id=IDENT RA e=expr %prec FUN   { Fun(id,e) }
   | e1=simple_expr e2=simple_expr      { App(e1,e2) }
+  | LET id=IDENT EQUAL e1=expr IN e2=expr { App(Fun(id, e2), e1) }
+
 
 simple_expr:
   | LPAR e=expr RPAR           { e }
