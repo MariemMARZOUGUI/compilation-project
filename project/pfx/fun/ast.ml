@@ -13,7 +13,7 @@ type command =
 
 type program = int * command list
 
-let string_of_command = function
+let rec string_of_command = function
   | PUSH n -> "PUSH" ^ string_of_int n
   | ADD -> "ADD"
   | SUB -> "SUB"
