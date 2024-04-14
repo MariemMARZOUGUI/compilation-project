@@ -1,2 +1,89 @@
 # compilation-project
 During our practice of compilation, we are going to write a compiler for a simple arithmetic expression language.
+
+AUTHORS
+-------
+
+- Yahia HENI
+- Mariem MARZOUGUI
+
+===============
+
+Description of the project
+--------------------------
+
+This micro-project entails developing a straightforward compiler. It transforms programs written in a high-level language, dubbed expr, into a low-level language known as pfx. Expr is a basic expression language supporting arithmetic operations, variables, and function definitions. Conversely, pfx is a stack-based language, functioning on a stack of values and executing operations by pushing and popping values from the stack.
+
+===============
+
+Sources
+-------
+
+Git repository: https://github.com/MariemMARZOUGUI/compilation-project
+
+===============
+
+How to…
+-------
+
+…retrieve the sources?
+
+  git clone https://github.com/MariemMARZOUGUI/compilation-project
+
+…compile?
+
+  dune build
+
+…execute and test?
+
+  dune utop and then use the libraries
+  (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example.expr
+  dune exec ./pfxVM.exe -- TESTFILE.pfx -a 12 -a 52
+
+===============
+
+Structure of the project
+------------------------
+
+The project has two main parts: the expr compiler and the pfx virtual machine.
+
+The expr compiler translates input from the expr language to the pfx language. It includes a lexer, parser, and modules for evaluating expressions and converting code.
+
+The pfx virtual machine executes programs in the pfx language, featuring a lexer, parser, and execution modules.
+
+Also, there's a location module for source code positions and a binOp module for shared binary operators. These are in the utils folder alongside a dune file for building.
+
+The project is organized into subdirectories for each part, each with its own dune file. Basic subdirectories contain modules common to both compilers. Lastly, there's a README for usage and testing instructions.
+
+===============
+
+Progress, known bugs and issues
+--------
+
+- We stopped at question 13.2 (proof of derivation)
+- We tried to code what is required for the questions 10 and 11 from what we understood but we are not sure if it is true ( the dune build is successful but we don't know how to test it )
+  
+  (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example1.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example1.expr
+
+--> are all functional 
+
+===============
+
+Helpful resources
+-----------------
+- Ocaml Documentation : https://www.ocaml.org/docs
+- Dune Documentation : https://dune.readthedocs.io/en/stable/index.html
+- Debugging : https://stackoverflow.com && https://chat.openai.com
+- Also, we mainly worked in class so the teacher's help was very useful for our progress. 
+
+===============
+
+Difficulties
+------------
+- we struggled to test the compiler, sometimes we don't know the specefic commands that are required to test especially before coding the parser
+- exercice 10 was quite challenging ( especially understanding the notion of depth )
+- the project posed a significant challenge, particularly due to our lack of prior experience with the OCaml language.
