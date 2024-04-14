@@ -10,6 +10,7 @@ Description of the project
 --------------------------
 
 This micro-project entails developing a straightforward compiler. It transforms programs written in a high-level language, dubbed expr, into a low-level language known as pfx. Expr is a basic expression language supporting arithmetic operations, variables, and function definitions. Conversely, pfx is a stack-based language, functioning on a stack of values and executing operations by pushing and popping values from the stack.
+
 ===============
 
 Sources
@@ -28,7 +29,7 @@ How to…
 
 …compile?
 
-  dune …
+  dune build
 
 …execute and test?
 
@@ -37,18 +38,22 @@ How to…
   (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example.expr
   dune exec ./pfxVM.exe -- TESTFILE.pfx -a 12 -a 52
 
-
 ===============
 
 Structure of the project
 ------------------------
 
-The project is organized as following:
+The project has two main parts: the expr compiler and the pfx virtual machine.
 
-Explain here the organization of your project, what is the use of each file or
-group of files, etc.
+The expr compiler translates input from the expr language to the pfx language. It includes a lexer, parser, and modules for evaluating expressions and converting code.
 
-You may also show the file tree as the following example:
+The pfx virtual machine executes programs in the pfx language, featuring a lexer, parser, and execution modules.
+
+Also, there's a location module for source code positions and a binOp module for shared binary operators. These are in the utils folder alongside a dune file for building.
+
+The project is organized into subdirectories for each part, each with its own dune file. Basic subdirectories contain modules common to both compilers. Lastly, there's a README for usage and testing instructions.
+
+You can find below the file tree of the project:
 
 project
 ├── README
@@ -64,8 +69,9 @@ project
 │   │   ├── lexer.mll
 │   │   ├── parser.mly
 │   │   ├── tests: for tests
-│   │   │   └── an_example.expr
-│   │   ├── toPfx.ml             <- To edit
+│   │   │   ├── an_example.expr
+│   │   │   └── an_example1.expr
+│   │   ├── toPfx.ml             
 │   │   └── toPfx.mli
 │   ├── common
 │   │   ├── binOp.ml
@@ -76,31 +82,42 @@ project
 │   ├── fun: the expr parser for section 7
 │   │   ├── ast.ml
 │   │   ├── ast.mli
+│   │   ├── dune
+│   │   ├── eval.ml
+│   │   ├── eval.mli
 │   │   ├── lexer.mll
 │   │   ├── tests
-│   │   └── parser.mly
+│   │   │   ├── an_example.expr
+│   │   │   └── an_example1.expr
+│   │   ├── parser.mly
+│   │   ├── toPfx.ml             
+│   │   └── toPfx.mli
 │   └── main.ml
 ├── pfx: the pfx VM
 │   ├── basic
-│   │   ├── ast.ml               <- To edit
+│   │   ├── ast.ml               
 │   │   ├── ast.mli
 │   │   ├── dune
-│   │   ├── eval.ml              <- To edit
+│   │   ├── eval.ml              
 │   │   ├── eval.mli
-│   │   ├── lexer.mll            <- To edit
-│   │   ├── parser.mly           <- To edit
+│   │   ├── lexer.mll            
+│   │   ├── parser.mly          
 │   │   └── tests: for tests
-│   │       └── ok_prog.pfx
+│   │       ├── ok_prog.pfx
+│   │       └── ok_prog1.pfx
 │   ├── dune
 │   ├── fun
 │   │   ├── ast.ml
 │   │   ├── ast.mli
+│   │   ├── dune
 │   │   ├── eval.ml
 │   │   ├── eval.mli
 │   │   ├── lexer.mll
 │   │   ├── parser.mly
 │   │   └── tests
-│   └── pfxVM.ml
+│   │       └── ok_prog.pfx
+│   ├── funVM.ml
+│   ├── main.ml
 │   └── pfxVM.ml: main file for the pfx VM
 └── utils
     ├── dune
@@ -108,37 +125,34 @@ project
     └── location.mli
 ===============
 
-Progress
+Progress, known bugs and issues
 --------
 
-- We stopped at question 12 (proof of derivation)
-- There is still a bug in question 11 (new version of generate function)
+- We stopped at question 13.2 (proof of derivation)
+- We tried to code what is required for the questions 10 and 11 from what we understood but we are not sure if it is true ( the dune build is successful but we don't know how to test it )
+  
+  (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example.expr
+  (from project root) dune exec expr/main.exe -- expr/basic/tests/an_example1.expr
+  (from project root) dune exec expr/main.exe -- expr/fun/tests/an_example1.expr
 
-===============
-
-Know bugs and issues
---------------------
-
-- We were not able to manage xxx…
-- Compiler fails when xxx…
-- …
+--> are all functional 
 
 ===============
 
 Helpful resources
 -----------------
-
-- we mainly worked in class so the teacher's help was very useful for our progress. 
+- Ocaml Documentation : https://www.ocaml.org/docs
+- Dune Documentation : https://dune.readthedocs.io/en/stable/index.html
+- Debugging : https://stackoverflow.com && https://chat.openai.com
+- Also, we mainly worked in class so the teacher's help was very useful for our progress. 
 
 ===============
 
 Difficulties
 ------------
+- we struggled to test the compiler, sometimes we don't know the specefic commands that are required to test especially before coding the parser
+- exercice 10 was quite challenging ( especially understanding the notion of depth )
+- the project posed a significant challenge, particularly due to our lack of prior experience with the OCaml language.
 
-- team programming: having to use a VCS such as git and avoiding conflicts
-- thinking functional
-- changing habits by using an unknown language
-- Not a single difficulty: the project was so easy that my 8-old brother did it
-  completely; the Ocaml language is so nice I enjoyed the project, …
-- …
 
