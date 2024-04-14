@@ -1,4 +1,5 @@
-open BasicPfx.Lexer
+open FunExpr
+open Utils
 
 let rec examine_all lexbuf =
   let result = token lexbuf in
