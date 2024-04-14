@@ -16,8 +16,9 @@ let string_of_state (cmds, stack) =
 let step state =
   match state with
   | [], _ -> Error("Nothing to step",state)
-  | PUSH n :: q , stack -> Ok (q, n::stack)
-
+  (* Valid configurations *)
+  | PUSH(n) :: q, stack -> Ok (q, Int n :: stack)
+  
   | POP :: q, stack -> 
     ( match stack with 
       | _ :: s -> Ok (q, s)
