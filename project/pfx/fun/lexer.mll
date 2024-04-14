@@ -45,7 +45,7 @@ rule token = parse
   | "SWAP"      { SWAP }
   | "ADD"       { ADD }
   | "SUB"       { SUB }
-  | "MUL"       { MUL }
+  | "MULT"       { MULT }
   | "DIV"       { DIV }
   | "REM"       { REM }
   | "EXEC"      { EXEC }
